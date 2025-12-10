@@ -596,18 +596,26 @@ function BuildAndInstallMakeMKV() {
   local cpuCount
 
   ArmUserHomeFolder=~arm
-  LatestMakeMKVVersion=$(curl -s https://www.makemkv.com/download/ | grep -o '[0-9.]*.txt' | sed 's/.txt//')
+  #Changing to use 1.17.6 of makemkv
+  LatestMakeMKVVersion=1.17.6
+  #LatestMakeMKVVersion=$(curl -s https://www.makemkv.com/download/ | grep -o '[0-9.]*.txt' | sed 's/.txt//')
   MakeMKVBuildFilesDirectory="${ArmUserHomeFolder}"/MakeMKVBuildFiles/"${LatestMakeMKVVersion}"
   cpuCount=$(nproc --all)
 
   mkdir -p "${MakeMKVBuildFilesDirectory}"
   cd "${MakeMKVBuildFilesDirectory}"
   curl -# -o makemkv-sha-"${LatestMakeMKVVersion}".txt  \
-    https://www.makemkv.com/download/makemkv-sha-"${LatestMakeMKVVersion}".txt
+    #Adding the /old to the URL
+    https://www.makemkv.com/download/old/makemkv-sha-"${LatestMakeMKVVersion}".txt
+    #https://www.makemkv.com/download/makemkv-sha-"${LatestMakeMKVVersion}".txt
   curl -# -o makemkv-bin-"${LatestMakeMKVVersion}".tar.gz \
-    https://www.makemkv.com/download/makemkv-bin-"${LatestMakeMKVVersion}".tar.gz
+    #Adding the /old to the URL
+    https://www.makemkv.com/download/old/makemkv-bin-"${LatestMakeMKVVersion}".tar.gz
+    #https://www.makemkv.com/download/makemkv-bin-"${LatestMakeMKVVersion}".tar.gz
   curl -# -o makemkv-oss-"${LatestMakeMKVVersion}".tar.gz \
-    https://www.makemkv.com/download/makemkv-oss-"${LatestMakeMKVVersion}".tar.gz
+    #Adding the /old to the URL
+    https://www.makemkv.com/download/old/makemkv-oss-"${LatestMakeMKVVersion}".tar.gz
+    #https://www.makemkv.com/download/makemkv-oss-"${LatestMakeMKVVersion}".tar.gz
   grep "makemkv-bin-${LatestMakeMKVVersion}.tar.gz" "makemkv-sha-${LatestMakeMKVVersion}.txt" | sha256sum -c
   grep "makemkv-oss-${LatestMakeMKVVersion}.tar.gz" "makemkv-sha-${LatestMakeMKVVersion}.txt" | sha256sum -c
   tar xzf makemkv-bin-"${LatestMakeMKVVersion}".tar.gz
